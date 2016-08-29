@@ -1,92 +1,254 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ my-portfolio.profile-title.value }}</title>
-    <meta name="{{my-portfolio.profile-title.value}} Online Portfolio" content="{{my-portfolio.profile-title.value}} Portfolio" />
-    <link rel="stylesheet" type="text/css" href="css/stylesheet-{{my-portfolio.color-select.value}}.css" />
-    <link href='http://fonts.googleapis.com/css?family=Hind:300|Montserrat:700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <meta name="{{my-portfolio.profile-title.value}} Online Portfolio" content{{my-portfolio.profile-title.value}} Portfolio" />
+     <link rel="stylesheet" type="text/css" href="css/stylesheet-{{my-portfolio.color-select.value}}.css" />
+    <link href='http://fonts.googleapis.com/css?family=Martel:200' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 <body>
-    <nav role="nav">
-        <div class="container cf">
-            <div class="left-nav">About <i class="fa fa-caret-down"></i></i></div>
-            {{#if my-portfolio.logo.value}}
-                <a href="index.html" class="header-logo" role="banner">
-                  <h1 class="sr-only" aria-hidden>{{ my-portfolio.profile-title.value }}</h1>
-                  <img src="images/{{ my-portfolio.logo.value }}" alt="logo" title="My logo">
-                </a>
-            {{else}}
-                <h1>{{ my-portfolio.profile-title.value }}</h1>
-            {{/if}}
-            <ul class="right-nav">
-                {{#each my-portfolio.select-input-double.options }}
-                    {{#each this}}
-                        <li>
-                            <a href="{{this}}" title="{{@key}} link"><i class="fa fa-{{@key}}"></i></a>
-                        </li>
-                    {{/each}}
+<nav role="navigation">
+    <div class="nav-container clearfix">
+        {{#if my-portfolio.logo.value}}
+            <a class="user-logo" href="index.html">
+                <h1 class="sr-only" aria-hidden>{{ my-portfolio.profile-title.value }}</h1>
+               <img src="images/{{my-portfolio.logo.value}}" alt="logo" text="My logo">
+            </a>
+        {{else}}
+            <h1><a href="index.html">{{ my-portfolio.profile-title.value }}</a></h1>
+        {{/if}}
+        <h2>Portfolio Website</h2>
+
+        <ul class="menu-items">
+            <li>
+                <a href="/about" class="show-projects">Projects</a>
+            </li>
+            <li>
+                <a href="" class="about-user">About</a>
+            </li>
+        </ul>
+
+        <ul class="media-icons">
+            {{#each my-portfolio.select-input-double.options }}
+                {{#each this}}
+                    <li>
+                        <a href="{{this}}" title="{{@key}} link"><i class="fa fa-{{@key}}"></i></a>
+                    </li>
                 {{/each}}
-            </ul>
-        </div>
-    </nav>
-
-    <main role="main">
-    <div class="overlay-view hidden">
-        <div class="close"><i class="fa fa-times"></i></div>
-        <div class="container project-details">
-              <div class="project-image">
-                <div class="image-container hidden">
-                  <img src="" alt="" title="">
-                </div>
-              </div>
-              <div class="text">
-                <h3></h3>
-                <div class="project-description"><p></p></div>
-                <div class="project-link"><a href=""></a></div>
-              </div>
-          </div>
+            {{/each}}
+        </ul>
     </div>
-        <div class="container">
+</nav>
+<div class="about-section fade-out remove hidden">
+     {{#if my-portfolio.profile-picture.value }}
+        <img src="images/{{ my-portfolio.profile-picture.value }}" alt="Profile picture" title="My profile picture">
+    {{else}}
+        <div class="about-image-placeholder"></div>
+    {{/if}}
+    <div class="about-details">
+        <h3>
+           {{my-portfolio.details-title.value}}
+        </h3>
+        {{{ my-portfolio.details.value }}}
+    </div>
 
-            <div class="about cf">
-                <div class="container">
-                    {{#if my-portfolio.profile-picture.value }}
-                    <div class="about-image">
-                        <img src="images/{{ my-portfolio.profile-picture.value }}" alt="Profile picture" title="My profile picture">
+</div>
+<div class="project-container">
+    <!-- Hidden Project View -->
+    <div class="project-view">
+        <div class="close-window"><i class="fa fa-times"></i></div>
+        <div class="project-contents">
+            <div class="project-view-container">
+                <div class="project-image">
+                    <img src="">
+                </div>
+                <div class="project-details">
+                    <h2></h2>
+                    <div class="project-paragraph"></div>
+                    <div class="project-link">
+                        <a href=""></a>
                     </div>
-                    {{else}}
-                    <div class="about-image-placeholder"></div>
-                    {{/if}}
-                    <div class="about-text">
-                        <h2>
-                         {{ my-portfolio.details-title.value }}
-                        </h2>
-                        {{{ my-portfolio.details.value }}}
-                    </div>
-
                 </div>
             </div>
-            <ul class="projects cf" id="grid">
-                {{#each project}}
-                <li class="grid-item" data-id="{{ this.id }}">
-                    <a href="#/{{ this.id }}">
-                        <div class="project-container">
-                            <img src="images/{{ this.cover-image }}" alt="{{this.cover-image}}" title="{{this.cover-image}}">
-                            <div class="overlay">
-                                <div>{{ this.title }}</div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                {{/each}}
-            </ul>
         </div>
-    </main>
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    </div>
+    <!-- Left Navigation -->
+    <ul class="grid effect" id="grid">
+        {{#each project}}
+            <li class="item">
+                <a href="#/{{ this.id }}">
+                    <img src="images/{{ this.cover-image }}" alt="{{this.cover-image}}" title="{{this.cover-image}}">
+                    <div class="show-overlay">
+                        <div class="details">
+                            <h3>{{ this.title }}</h3>
+                            View
+                        </div>
+                    </div>
+                </a>
+            </li>
+        {{/each}}
+    </ul>
+</div>
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="js/main.min.js"></script>
+<script>
+    $(window).load(function() {
+
+
+        new AnimOnScroll( document.getElementById( 'grid' ), {
+            minDuration : 0.4,
+            maxDuration : 0.7,
+            viewportFactor : 0.2
+        } );
+
+
+        var aboutUser = document.querySelector('.about-user');
+        var projects = document.querySelector('.show-projects');
+        var projectItem = document.querySelectorAll('.item a');
+        var projectView = document.querySelector('.project-view');
+        var aboutSection = document.querySelector('.about-section');
+        var gridContainer = document.querySelector('.project-container');
+        var $titleContent = $('h1').text();
+        var $title = $('h1');
+        var $projectData = "";
+
+        var medium = false,
+            large  = false,
+            length;
+
+        if($titleContent.indexOf(' ') != -1) {
+            $titleContent = $titleContent.split(' ');
+            length = $titleContent.length;
+        } else {
+            $titleContent.length = 1;
+            $titleContent = [$titleContent];
+            length = 1;
+        }
+
+
+        for(var i = 0; i < length; i++) {
+            if($titleContent[i].length > 7 && $titleContent[i].length <= 9) {
+                medium = true;
+            } else if($titleContent[i].length > 9) {
+                large = true;
+            }
+        }
+
+        if(medium === true) {
+            $title.addClass('title-medium');
+        }
+
+        if(large === true) {
+            $title.addClass('title-large');
+        }
+
+
+        aboutUser.addEventListener('click', function(e) {
+            e.preventDefault();
+            hideProject();
+            gridContainer.classList.add("slide-right");
+            aboutSection.classList.remove('hidden');
+            setTimeout(function(){
+                aboutSection.classList.remove("fade-out");
+                aboutSection.classList.remove("remove");
+                gridContainer.classList.remove("float-right");
+            }, 500);
+        });
+
+        projects.addEventListener('click', function(e) {
+            e.preventDefault();
+            hideProject();
+            aboutSection.classList.add("fade-out");
+            setTimeout(function(){
+                aboutSection.classList.add("remove");
+                gridContainer.classList.remove("slide-right");
+            }, 500);
+        });
+
+
+        var path = window.location.href;
+        if(path.indexOf("#") >= 0) {
+            getProject();
+        }
+
+
+        addEventListener('hashchange', function () {
+            getProject();
+        });
+
+        function getProject() {
+            var id = getProjectId();
+            if($projectData == "") {
+                $.ajax({
+                    url: 'data/data.json',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data, status) {
+                        if (status === "success") {
+                            $projectData = data;
+                            showProject($projectData, id);
+                        }
+                    }
+                });
+            } else {
+                showProject($projectData, id);
+            }
+        }
+
+        function getProjectId() {
+            var hashPath =  window.location.href;
+            hashPath = hashPath.split('/');
+            var hashLength = hashPath.length - 1;
+            var id = hashPath[hashLength];
+            return id;
+        }
+
+        function showProject(data, id) {
+            var $data = data;
+            jQuery.each($data.project, function(i, val) {
+                if(i == id) {
+                    console.log(val['cover-image']);
+                    $('.project-image img').attr('src', './images/'+val['cover-image']);
+                    $('.project-details h2').html(val.title);
+                    $('.project-paragraph').html(val.description);
+                    $('.project-link a').attr('href', val.link);
+                    $('.project-link a').html(val.link);
+                }
+            });
+
+            var height = window.innerHeight;
+            $('.project-contents').css('height', height);
+            $('.project-contents .project-image').imgLiquid();
+            if($(window).width() < 1025) {
+                $("html, body").animate({ scrollTop: 200 }, "slow");
+            } else {
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+            }
+            $('.project-view').addClass('project-show');
+        }
+
+        function hideProject() {
+            window.history.pushState('', '', 'index.html');
+            $('.project-container').css('position', 'relative');
+            $('.project-view').removeClass('project-show');
+        }
+
+        $('.close-window').on('click', hideProject);
+
+        $( window ).resize(function() {
+            if($(window).width() < 1025) {
+                $('.project-container').css('position', 'relative');
+            }
+        });
+
+    });
+
+
+</script>
 </body>
 </html>
